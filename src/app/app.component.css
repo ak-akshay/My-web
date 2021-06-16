@@ -1,0 +1,231 @@
+.body {
+    position: relative;
+    z-index: 1;
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+.controls {
+    z-index: 9;
+    position: absolute;
+    top: 80%;
+    width: 100%;
+    text-align: center;
+}
+
+.controls button {
+    font-size: 3rem;
+    cursor: pointer;
+    color: var(--accent-color);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: var(--accent-color);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+}
+
+.overlay .left,
+.overlay .right {
+    display: inline-block;
+    width: 50%;
+    background: var(--white);
+    height: inherit;
+}
+
+.section1 {
+    background-image: url('../assets/backgrounds/bg1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    height: 100vh;
+}
+
+.section2 {
+    /* background-image: url('../assets/backgrounds/bg7.jpg'); */
+    background-image: linear-gradient(to right top, #030014, #14031a, #20061c, #2c061a, #370514, #460614, #540a12, #61110c, #7b1610, #951b14, #b12116, #cd2718);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.stroke-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--white);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 6rem;
+    font-family: var(--heading-font);
+    position: relative;
+    left: 8%;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.name {
+    color: var(--white);
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 4px;
+    text-transform: uppercase;
+    position: relative;
+    left: 8%;
+    overflow: hidden;
+    font-size: 7rem;
+    font-family: var(--fancy-font);
+}
+
+.letter {
+    display: inline-block;
+}
+
+.letter:nth-child(1) {
+    color: var(--accent-color);
+    -webkit-text-stroke-color: var(--accent-color) !important;
+    font-size: 8rem;
+}
+
+.social {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: -webkit-fill-available;
+    overflow: hidden;
+    font-size: 3rem;
+    overflow: hidden;
+    z-index: 9;
+}
+
+.social a {
+    color: var(--black);
+}
+
+.social a:hover {
+    color: var(--accent-color);
+}
+
+.display {
+    margin: 1rem 0;
+    background-image: url("../assets/images/display-picture.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.desc {
+    font-size: 2rem;
+}
+
+.lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    margin: auto;
+    width: 90vw;
+}
+
+.line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.line:nth-child(1) {
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: 25%;
+}
+
+.line:nth-child(2) {
+    width: 100vw;
+    height: 1px;
+    top: 20%;
+    left: -5%;
+}
+
+.line::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 15vh;
+    width: 100%;
+    top: -50%;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+    animation: drop 5s 0s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+}
+
+.line:nth-child(1)::after {
+    animation-delay: 2s;
+    top: -50%;
+    left: 25%;
+    height: 15vh;
+    width: 100%;
+    animation: dropdown 4s 0s infinite;
+}
+
+.line:nth-child(2)::after {
+    animation-delay: 1.5s;
+    top: 10%;
+    left: 0%;
+    height: 100%;
+    width: 10vw;
+    animation: slideright 6s 0s infinite;
+}
+
+@keyframes dropdown {
+    0% {
+        top: -50%;
+    }
+    100% {
+        top: 110%;
+    }
+}
+
+@keyframes slideright {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: 110%;
+    }
+}
+
+.none {
+    display: none;
+}

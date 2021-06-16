@@ -1,0 +1,15 @@
+{
+    "hosting": {
+        "site": "akshaykhandelwal",
+        "public": "dist/my-web",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [{
+            "source": "**",
+            "destination": "/index.html"
+        }]
+    }
+}

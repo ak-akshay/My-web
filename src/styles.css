@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+/* Google fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Oswald:wght@300&family=Roboto+Slab&display=swap');
+
+/* ---------Google fonts------ */
+
+
+/* Global Variables */
+
+:root {
+    --black: #212121;
+    --white: #f8f9fa;
+    --accent-color: #ff1944;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Spartan', sans-serif;
+    --fancy-font: 'Bubblegum Sans', cursive;
+    --heading-font: 'Roboto Slab', serif;
+    --regular-font: 'Oswald', sans-serif;
+}
+
+
+/* --------Global Variables------ */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--regular-font);
+}
+
+.bg-light {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.bg-dark {
+    background-color: var(--black);
+    color: var(--white);
+}
