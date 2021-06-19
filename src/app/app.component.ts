@@ -1,4 +1,4 @@
-import { animate, keyframes, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, keyframes, query, sequence, stagger, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,82 +6,89 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    trigger('lineReveal', [
-      transition('void => *', [style({ height: 0 }), animate(700)]),
+
+    trigger('transition', [
+      transition('false <=> true', [
+        sequence([
+          style({ zIndex: 4, width: 0, offset: 0.1 }),
+          animate('2s ease-out', keyframes([
+            style({ width: '20%', offset: 0.2 }),
+            style({ width: '60%', offset: 0.3 }),
+            style({ width: '100%', offset: 0.4 }),
+            style({ width: '100%', offset: 0.5 }),
+            style({ width: '60%', offset: 0.6 }),
+            style({ width: '40%', offset: 0.7 }),
+            style({ width: '20%', offset: 0.8 }),
+            style({ width: 0, offset: 0.9 }),
+            style({ zIndex: -1, width: 0, offset: 1.0 })
+          ]))
+        ])
+      ])
     ]),
+
+    trigger('lineReveal', [
+      transition('void => *', [style({ height: 0 }), animate('700ms 0.1s ease')]),
+    ]),
+
     trigger('nameReveal', [
       transition('void => *', [
         query('.letter:enter', [
           stagger(0, [
-            style({ fontSize: 0, transform: 'rotate(-90deg)  translate(-10px, -20px)' }), 
+            style({ fontSize: 0, transform: 'rotate(-90deg)  translate(-10px, -20px)' }),
             animate('0.4s 0.8s')
           ])
-        ],
-        )
+        ])
       ]),
     ]),
+
     trigger('leftIn', [
-      state('visible', style({ transform: 'translate(-15rem, 0)', opacity: 0 })),
-      state('visible', style({ transform: 'translate(0, 0)', opacity: 1 })),
-      transition('visible <=> hidden', [animate('0.5s 0.5s')])
+      state('hidden', style({ transform: 'translate(-20rem, 0rem)', opacity: 0 })),
+      state('visible', style({ transform: 'translate(0rem, 0rem)', opacity: 1 })),
+      transition('visible <=> hidden', [animate('10s 4s')]),
+      transition('void <=> *', [style({ transform: 'translateX(-60rem)' }), animate(500)]),
     ]),
-    trigger('bottomIn', [
-      transition('void <=> *', [style({ minHeight: '0', height: '0' }), animate(500)]),
-    ]),
+
     trigger('reveal', [
-      state('hidden', style({ transform: 'rotate3d(1, 1, 1, 120deg)', opacity: 0, zIndex: 0 })),
-      state('visible', style({ transform: 'rotate3d(1, 1, 1, 0deg)', opacity: 1, zIndex: 3 })),
-      transition('visible => hidden', [
-        sequence([
-          animate('0.5s', keyframes([
-            style({ transform: 'rotate3d(1, 1, 1, 0deg)',  opacity: 1 }),
-            style({ transform: 'rotate3d(1, 1, 1, 120deg)',  opacity: 0 }),])),
-          animate('0.1s', keyframes([
-            style({ zIndex: 3 }),
-            style({ zIndex: 0 })]))
-        ])
-      ]),
-      transition('hidden => visible', [
-        sequence([
-          animate('0.1s', keyframes([
-            style({ zIndex: 0 }),
-            style({ zIndex: 3 })])),
-          animate('0.5s', keyframes([
-            style({ transform: 'rotate3d(1, 1, 1, 120deg)',  opacity: 0 }),
-            style({ transform: 'rotate3d(1, 1, 1, 0deg)',  opacity: 1 })]))
-        ])
-      ]),
+      state('hidden', style({ zIndex: -1 })),
+      state('visible', style({ zIndex: 2 })),
+      transition('hidden => visible', [animate('3.0s')]),
+      transition('visible => hidden', [animate('1.6s')])
     ]),
-    trigger('slideTop', [
-      state('hidden', style({ position: 'relative', top: '-100vh' })),
-      state('visible', style({ position: 'relative', top: 0 })),
-      transition('visible <=> hidden', [animate(400)]),
-    ]),
-    trigger('slideBottom', [
-      state('hidden', style({ position: 'relative', top: '100vh' })),
-      state('visible', style({ position: 'relative', top: 0 })),
-      transition('visible <=> hidden', [animate(400)]),
-    ]),
+
   ]
 })
 export class AppComponent implements OnInit {
-  sections:string[] = ['section1', 'section2', 'section3'];
-  name :string[] = ['a', 'k', 's', 'h', 'a', 'y'];
+  sections: string[] = ['section1', 'section2', 'section3'];
+  name: string[] = ['a', 'k', 's', 'h', 'a', 'y'];
   currentSection = 0;
   section1 = 'visible';
   section2 = 'hidden';
+  section3 = 'hidden';
+  transit = 'false';
   ngOnInit() { }
 
   changeSection(section: number) {
+    if(this.currentSection == section) {
+      return ;
+    }
     this.currentSection = section;
-    if (this.sections[section] == 'section1') {
+    this.transit = this.transit == 'true' ? 'false' : 'true';
+    if (this.sections[this.currentSection] == 'section1') {
       this.section1 = 'visible';
       this.section2 = 'hidden';
+      this.section3 = 'hidden';
     }
-    else {
+    else if (this.sections[this.currentSection] == 'section2') {
       this.section1 = 'hidden';
       this.section2 = 'visible';
+      this.section3 = 'hidden';
     }
+    else if (this.sections[this.currentSection] == 'section3') {
+      this.section1 = 'hidden';
+      this.section2 = 'hidden';
+      this.section3 = 'visible';
+    }
+    // this.transit = 'false';
   }
 
   width = 100;
@@ -90,7 +97,7 @@ export class AppComponent implements OnInit {
     'position': 'absolute',
     'width': '100%',
     'height': '100vh',
-    'z-index': 3,
+    'z-index': 0,
     'top': 0,
     'left': 0,
     'right': 0,

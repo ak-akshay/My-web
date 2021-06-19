@@ -1,14 +1,14 @@
 <div class="body">
-    <div class="controls">
-        <button [class.none]="currentSection == 0" (click)="changeSection(currentSection-1)">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </button> &nbsp;
-        <button [class.none]="currentSection == 1" (click)="changeSection(currentSection+1)">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </button>
+    <div class="overlay">
+        <div class="div" [@transition]='transit'></div>
+        <div class="div" [@transition]='transit'></div>
+        <div class="div" [@transition]='transit'></div>
+        <div class="div" [@transition]='transit'></div>
     </div>
-    <div class="section1">
-        <particles [style]="style" [width]="width" [height]="height" [params]="params"></particles>
+
+    <div class="section1" [@reveal]='section1'>
+        <particles *ngIf="currentSection == 0" [style]="style" [width]="width" [height]="height" [params]="params">
+        </particles>
         <div class="stroke-text" @lineReveal>
             Hello!
         </div>
@@ -18,37 +18,118 @@
         <div class="name" @nameReveal>
             <div class="letter" *ngFor="let letter of name">{{letter}}</div>
         </div>
-        <div class="social bg-light" @bottomIn>
-            <a href="https://github.com/ak-akshay" target="_blank">
-                <i class="fa fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/akshay-khandelwal-8a4094158/" target="_blank">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/_akshay_khandelwal_/" target="_blank">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </a>
-            <a href="http://www.facebook.com/ak.akshaykhandelwal" target="_blank">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-            </a>
-            <!-- <a href="mailto:'kak.akshay17@gmail.com'" target="_blank">
-                <i class="fa fa-envelope-o" aria-hidden="true"></i>
-            </a> -->
-        </div>
     </div>
-    <!-- <div class="overlay">
-        <div class="left" [@slideTop]='section2'></div>
-        <div class="right" [@slideBottom]='section2'></div>
-    </div> -->
+
     <div class="section2 bg-dark" [@reveal]='section2'>
-        <!-- <div class="display"></div> -->
-        <div class="desc" [@leftIn]='section2'>
-            MEAN stack developer <br> Java Programmer <br> Competitive Programmer <br>
+        <div class="side-column">
+            <!-- <div class="display"></div> -->
+            <!-- <mat-divider></mat-divider> -->
+            <div class="caption">Languages</div>
+            <div class="languages">
+                <div>
+                    <mat-progress-spinner class="lang" mode="determinate" value=95> </mat-progress-spinner>
+                    <span>English<br>95%</span>
+                </div>
+                <div>
+                    <mat-progress-spinner class="lang" mode="determinate" value=100> </mat-progress-spinner>
+                    <span>Hindi<br>100%</span>
+                </div>
+                <div>
+                    <mat-progress-spinner class="lang" mode="determinate" value=70> </mat-progress-spinner>
+                    <span>French<br>70%</span>
+                </div>
+            </div>
+            <div class="caption">Skills</div>
+            <div class="skills">
+                <div>
+                    Java
+                    <span class="skill-value">95%</span>
+                    <mat-progress-bar mode="determinate" value=95></mat-progress-bar>
+                </div>
+                <div>
+                    Angular
+                    <span class="skill-value">80%</span>
+                    <mat-progress-bar mode="determinate" value=80></mat-progress-bar>
+                </div>
+                <div>
+                    PHP
+                    <span class="skill-value">75%</span>
+                    <mat-progress-bar mode="determinate" value=75></mat-progress-bar>
+                </div>
+                <div>
+                    Solidity
+                    <span class="skill-value">50%</span>
+                    <mat-progress-bar mode="determinate" value=50></mat-progress-bar>
+                </div>
+                <!-- <div>
+                    <span> 95%</span>
+                    <mat-progress-bar class="example-margin" mode="determinate" value=90></mat-progress-bar>
+                </div>
+                <div>
+                    <span>Java 95%</span>
+                    <mat-progress-bar class="example-margin" mode="determinate" value=90></mat-progress-bar>
+                </div> -->
+            </div>
+        </div>
+        <div *ngIf="currentSection == 1" class="desc">
+            I am Akshay Khandelwal.
+            <br>I am
+            <ul>
+                <li>MEAN Stack Developer</li>
+                <li>Java Programmer</li>
+                <li>Competitive Programmer</li>
+                <li>Sports Enthusiast</li>
+            </ul>
+            <!-- I call myself an developer as it’s a nice umbrella term for the web development / software development /  that I can do. -->
         </div>
         <div class="lines">
             <div class="line"></div>
             <div class="line"></div>
-            <!-- <div class="line"></div> -->
         </div>
+        <div></div>
     </div>
+    <div class="section3" [@reveal]='section3'>
+        <a class="thumbnails" href="https://meme-creator-c6435.web.app/" target="_blank">
+            <!-- <div>Meme Creator</div> -->
+        </a>
+        <a class="thumbnails" href="https://rentalapp-f587c.web.app/" target="_blank">
+            <!-- <div>Rental App</div> -->
+        </a>
+        <a class="thumbnails" href="https://freshhfits.000webhostapp.com/" target="_blank">
+            <!-- <div>Fresh Fits</div> -->
+        </a>
+        <a class="thumbnails" href="https://readytoprint.000webhostapp.com/" target="_blank">
+            <!-- <div>Ready To Print</div> -->
+        </a>
+    </div>
+
+    <!-- Contorls -->
+    <div class="controls">
+        <button [class.fill]="currentSection == 0" #tt1="matTooltip" (click)="tt1.show();changeSection(0)" matTooltip="Hello!" matTooltipHideDelay=1000>
+            <i class="fa fa-circle" aria-hidden="true"></i>
+        </button>
+        <button [class.fill]="currentSection == 1" #tt2="matTooltip" (click)="tt2.show();changeSection(1)" matTooltip="About me" matTooltipHideDelay=1000>
+            <i class="fa fa-circle" aria-hidden="true"></i>
+        </button>
+        <button [class.fill]="currentSection == 2" #tt3="matTooltip" (click)="tt3.show();changeSection(2)" matTooltip="My Works" matTooltipHideDelay=1000>
+            <i class="fa fa-circle" aria-hidden="true"></i>
+        </button>
+    </div>
+    <!-- ---------controls----------- -->
+    <!-- Footer -->
+    <div class="social bg-light" @leftIn>
+        <a href="https://github.com/ak-akshay" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/akshay-khandelwal-8a4094158/" target="_blank">
+            <i class="fa fa-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/_akshay_khandelwal_/" target="_blank">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="http://www.facebook.com/ak.akshaykhandelwal" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+    </div>
+    <!-- --------footer---------- -->
 </div>
